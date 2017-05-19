@@ -31,74 +31,82 @@ class UserLocationMapController: UIViewController {
     
     @IBAction func submitStudentInformation(_ sender: AnyObject) {
         
-        if let details = userDetails, let id = details.objectId {
-            
-            if let region = userRegion, let mediaText = linkTextField.text, mediaText != "", let key = UdacityClient.sharedInstance().accountKey, let firstName = UdacityClient.sharedInstance().firstName, let lastName = UdacityClient.sharedInstance().lastName {
+        if let mediaText = linkTextField.text, mediaText != "" {
+            if let details = userDetails, let id = details.objectId {
                 
-                let dict: [String: AnyObject] = [
-                    UdacityClient.JSONResponseKeys.ObjectId: id as AnyObject,
-                    UdacityClient.JSONResponseKeys.FirstName: firstName as AnyObject,
-                    UdacityClient.JSONResponseKeys.LastName: lastName as AnyObject,
-                    UdacityClient.JSONResponseKeys.UniqueKey: key as AnyObject,
-                    UdacityClient.JSONResponseKeys.MediaUrlString: mediaText as AnyObject,
-                    UdacityClient.JSONResponseKeys.MapString: locationString as AnyObject,
-                    UdacityClient.JSONResponseKeys.Latitude: region.center.latitude as AnyObject,
-                    UdacityClient.JSONResponseKeys.Longitude: region.center.longitude as AnyObject
-                ]
-                
-                self.activityIndicator.isHidden = false
-                self.activityIndicator.startAnimating()
-                
-                let student = StudentLocation(dictionary: dict)
-                
-                UdacityClient.sharedInstance().updateStudentLocation(forStudent: student, { (success, error) in
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                        self.activityIndicator.isHidden = true
-                    }
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
+                if let region = userRegion, let key = UdacityClient.sharedInstance().accountKey, let firstName = UdacityClient.sharedInstance().firstName, let lastName = UdacityClient.sharedInstance().lastName {
+                    
+                    let dict: [String: AnyObject] = [
+                        UdacityClient.JSONResponseKeys.ObjectId: id as AnyObject,
+                        UdacityClient.JSONResponseKeys.FirstName: firstName as AnyObject,
+                        UdacityClient.JSONResponseKeys.LastName: lastName as AnyObject,
+                        UdacityClient.JSONResponseKeys.UniqueKey: key as AnyObject,
+                        UdacityClient.JSONResponseKeys.MediaUrlString: mediaText as AnyObject,
+                        UdacityClient.JSONResponseKeys.MapString: locationString as AnyObject,
+                        UdacityClient.JSONResponseKeys.Latitude: region.center.latitude as AnyObject,
+                        UdacityClient.JSONResponseKeys.Longitude: region.center.longitude as AnyObject
+                    ]
+                    
+                    self.activityIndicator.isHidden = false
+                    self.activityIndicator.startAnimating()
+                    
+                    let student = StudentLocation(dictionary: dict)
+                    
+                    UdacityClient.sharedInstance().updateStudentLocation(forStudent: student, { (success, error) in
                         DispatchQueue.main.async {
-                            self.userDelegate.infoSuccessfullySubmitted()
+                            self.activityIndicator.stopAnimating()
+                            self.activityIndicator.isHidden = true
                         }
-                    }
-                })
+                        if let error = error {
+                            DispatchQueue.main.async {
+                                self.userDelegate.errorOccured(title: "Oops", message: error.localizedDescription)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.userDelegate.infoSuccessfullySubmitted()
+                            }
+                        }
+                    })
+                }
+            } else {
+                if let region = userRegion, let key = UdacityClient.sharedInstance().accountKey, let firstName = UdacityClient.sharedInstance().firstName, let lastName = UdacityClient.sharedInstance().lastName {
+                    
+                    let dict: [String: AnyObject] = [
+                        UdacityClient.JSONResponseKeys.FirstName: firstName as AnyObject,
+                        UdacityClient.JSONResponseKeys.LastName: lastName as AnyObject,
+                        UdacityClient.JSONResponseKeys.UniqueKey: key as AnyObject,
+                        UdacityClient.JSONResponseKeys.MediaUrlString: mediaText as AnyObject,
+                        UdacityClient.JSONResponseKeys.MapString: locationString as AnyObject,
+                        UdacityClient.JSONResponseKeys.Latitude: region.center.latitude as AnyObject,
+                        UdacityClient.JSONResponseKeys.Longitude: region.center.longitude as AnyObject
+                    ]
+                    
+                    self.activityIndicator.isHidden = false
+                    self.activityIndicator.startAnimating()
+                    
+                    let student = StudentLocation(dictionary: dict)
+                    
+                    UdacityClient.sharedInstance().postStudentLocation(forStudent: student, { (objectId, error) in
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                            self.activityIndicator.isHidden = true
+                        }
+                        if let error = error {
+                            DispatchQueue.main.async {
+                                self.userDelegate.errorOccured(title: "Oops", message: error.localizedDescription)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.userDelegate.infoSuccessfullySubmitted()
+                            }
+                        }
+                    })
+                }
             }
         } else {
-            if let region = userRegion, let mediaText = linkTextField.text, mediaText != "", let key = UdacityClient.sharedInstance().accountKey, let firstName = UdacityClient.sharedInstance().firstName, let lastName = UdacityClient.sharedInstance().lastName {
-                
-                let dict: [String: AnyObject] = [
-                    UdacityClient.JSONResponseKeys.FirstName: firstName as AnyObject,
-                    UdacityClient.JSONResponseKeys.LastName: lastName as AnyObject,
-                    UdacityClient.JSONResponseKeys.UniqueKey: key as AnyObject,
-                    UdacityClient.JSONResponseKeys.MediaUrlString: mediaText as AnyObject,
-                    UdacityClient.JSONResponseKeys.MapString: locationString as AnyObject,
-                    UdacityClient.JSONResponseKeys.Latitude: region.center.latitude as AnyObject,
-                    UdacityClient.JSONResponseKeys.Longitude: region.center.longitude as AnyObject
-                ]
-                
-                self.activityIndicator.isHidden = false
-                self.activityIndicator.startAnimating()
-                
-                let student = StudentLocation(dictionary: dict)
-                
-                UdacityClient.sharedInstance().postStudentLocation(forStudent: student, { (objectId, error) in
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                        self.activityIndicator.isHidden = true
-                    }
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        DispatchQueue.main.async {
-                            self.userDelegate.infoSuccessfullySubmitted()
-                        }
-                    }
-                })
-            }
+            userDelegate.errorOccured(title: "Oops", message: "Media Url cannot be empty!")
         }
-    
+
     }
     
     func evaluateRegionAndDisplay() {

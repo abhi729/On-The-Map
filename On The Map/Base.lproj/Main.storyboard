@@ -83,7 +83,7 @@
                                     <constraint firstItem="6wi-Uc-BbL" firstAttribute="leading" secondItem="gOt-V7-ZcD" secondAttribute="leading" id="qD1-Dr-iwW"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eC8-Vc-pvc">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eC8-Vc-pvc">
                                 <rect key="frame" x="20" y="607" width="335" height="40"/>
                                 <color key="backgroundColor" red="0.28773388266563416" green="0.41661524772644043" blue="0.70710569620132446" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -425,6 +425,10 @@ today?</string>
         <scene sceneID="9lP-tM-92z">
             <objects>
                 <viewController storyboardIdentifier="UserLocationMapController" id="BHd-pF-Lda" customClass="UserLocationMapController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cfN-c1-JrK"/>
+                        <viewControllerLayoutGuide type="bottom" id="u8d-8O-JJ0"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="B5q-6Y-X7r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
