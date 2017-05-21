@@ -45,4 +45,11 @@ struct StudentLocation {
         
         return locations
     }
+    
+}
+
+struct Students {
+    
+    static var infoArray: [StudentLocation] = []
+    
 }

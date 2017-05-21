@@ -10,7 +10,6 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    var studentLocationArray: [StudentLocation] = []
     var user: StudentLocation?
     
     override func viewDidLoad() {
@@ -21,8 +20,17 @@ class TabBarController: UITabBarController {
     
     func fetchStudentDetails() {
         let _ = UdacityClient.sharedInstance().getStudentLocations(100, nil, "-\(UdacityClient.JSONResponseKeys.UpdatedAt)", { (locations, error) in
+            
+            guard error == nil else {
+                self.notifyChildOfFailure()
+                DispatchQueue.main.async {
+                    self.alertUser(title: "Oops!", message: error!.localizedDescription)
+                }
+                return
+            }
+            
             if let studentLocations = locations {
-                self.studentLocationArray = studentLocations
+                Students.infoArray = studentLocations
                 
                 for location in studentLocations {
                     if let key = location.uniqueKey, let userKey = UdacityClient.sharedInstance().accountKey, key == userKey {
@@ -39,8 +47,32 @@ class TabBarController: UITabBarController {
                         vc.studentLocationUpdated()
                     }
                 }
+            } else {
+                self.notifyChildOfFailure()
             }
+            
+            
         })
+    }
+    
+    func notifyChildOfFailure() {
+        DispatchQueue.main.async {
+            if let vc = self.childViewControllers[0] as? MapViewController {
+                vc.addAnnotationForStudents(inArray: [])
+            }
+            if let vc = self.childViewControllers[1] as? StudentTableController {
+                vc.studentLocationUpdated()
+            }
+        }
+    }
+    
+    func alertUser(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+        }
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func logoutUser(_ sender: Any) {

@@ -41,15 +41,12 @@ class StudentTableController: UIViewController {
 extension StudentTableController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let tabController = self.tabBarController as? TabBarController {
-            return tabController.studentLocationArray.count
-        }
-        return 0
+        return Students.infoArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let student = (self.tabBarController as! TabBarController).studentLocationArray[indexPath.row]
+        let student = Students.infoArray[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath) as! StudentTableCell
         cell.nameLabel.text = "\(student.firstName ?? "") \(student.lastName ?? "")"
@@ -63,7 +60,7 @@ extension StudentTableController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let student = (self.tabBarController as! TabBarController).studentLocationArray[indexPath.row]
+        let student = Students.infoArray[indexPath.row]
         if let url = URL(string: student.mediaUrlString ?? "") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
