@@ -27,15 +27,6 @@ class LoginViewController: UIViewController {
         
     }
     
-    func alertUser(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
     func actionForLogin() {
         if let email = emailTextField.text, let password = passwordTextField.text, email != "", password != "" {
             loginActivityIndicator.isHidden = false
@@ -45,7 +36,6 @@ class LoginViewController: UIViewController {
                     UdacityClient.sharedInstance().getPublicUserData({ (success, error) in
                         DispatchQueue.main.async {
                             self.loginActivityIndicator.stopAnimating()
-                            self.loginActivityIndicator.isHidden = true
                             self.loginButton.isUserInteractionEnabled = true
                         }
                         if success {
@@ -54,7 +44,7 @@ class LoginViewController: UIViewController {
                             }
                         } else if let error = error {
                             DispatchQueue.main.async {
-                                self.alertUser(title: "Oops!", message: error.localizedDescription)
+                                UdacityClient.sharedInstance().alertUser(title: "Oops!", message: error.localizedDescription, controller: self)
                             }
                         }
                     })
@@ -62,14 +52,13 @@ class LoginViewController: UIViewController {
                 } else if let error = error {
                     DispatchQueue.main.async {
                         self.loginActivityIndicator.stopAnimating()
-                        self.loginActivityIndicator.isHidden = true
                         self.loginButton.isUserInteractionEnabled = true
-                        self.alertUser(title: "Oops!", message: error.localizedDescription)
+                        UdacityClient.sharedInstance().alertUser(title: "Oops!", message: error.localizedDescription, controller: self)
                     }
                 }
             })
         } else {
-            alertUser(title: "Oops!", message: "Email/Password cannot be empty!")
+            UdacityClient.sharedInstance().alertUser(title: "Oops!", message: "Email/Password cannot be empty!", controller: self)
             loginButton.isUserInteractionEnabled = true
         }
     }
@@ -86,11 +75,6 @@ class LoginViewController: UIViewController {
         emailTextField.addPaddingToTheLeft()
         passwordTextField.addPaddingToTheLeft()
         loginActivityIndicator.isHidden = true
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

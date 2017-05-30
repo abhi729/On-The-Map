@@ -55,7 +55,6 @@ class UserLocationMapController: UIViewController {
                     UdacityClient.sharedInstance().updateStudentLocation(forStudent: student, { (success, error) in
                         DispatchQueue.main.async {
                             self.activityIndicator.stopAnimating()
-                            self.activityIndicator.isHidden = true
                         }
                         if let error = error {
                             DispatchQueue.main.async {
@@ -89,7 +88,6 @@ class UserLocationMapController: UIViewController {
                     UdacityClient.sharedInstance().postStudentLocation(forStudent: student, { (objectId, error) in
                         DispatchQueue.main.async {
                             self.activityIndicator.stopAnimating()
-                            self.activityIndicator.isHidden = true
                         }
                         if let error = error {
                             DispatchQueue.main.async {
@@ -118,7 +116,6 @@ class UserLocationMapController: UIViewController {
                 DispatchQueue.main.async {
                     self.userDelegate.errorOccured(title: "Oops", message: "Location not found!")
                     self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
                     
                 }
                 return
@@ -138,7 +135,6 @@ class UserLocationMapController: UIViewController {
                     self.mapView.setRegion(region, animated: true)
                     self.mapView.addAnnotation(mkPlacemark)
                     self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
                 }
                 
             }

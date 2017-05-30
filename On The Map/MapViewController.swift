@@ -24,7 +24,6 @@ class MapViewController: UIViewController {
         
         if activityIndicator != nil {
             activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
         }
         
         if mapView != nil {

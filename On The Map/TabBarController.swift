@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
             guard error == nil else {
                 self.notifyChildOfFailure()
                 DispatchQueue.main.async {
-                    self.alertUser(title: "Oops!", message: error!.localizedDescription)
+                    UdacityClient.sharedInstance().alertUser(title: "Oops!", message: error!.localizedDescription, controller: self)
                 }
                 return
             }
@@ -64,15 +64,6 @@ class TabBarController: UITabBarController {
                 vc.studentLocationUpdated()
             }
         }
-    }
-    
-    func alertUser(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default) {
-            UIAlertAction in
-        }
-        alertController.addAction(dismissAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func logoutUser(_ sender: Any) {

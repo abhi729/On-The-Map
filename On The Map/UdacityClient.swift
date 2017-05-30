@@ -30,6 +30,15 @@ class UdacityClient: NSObject {
     // shared session
     var session = URLSession.shared
     
+    func alertUser(title: String, message: String, controller: UIViewController) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default) {
+            UIAlertAction in
+        }
+        alertController.addAction(dismissAction)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: POST
     
     func taskForPOSTMethod(_ path: String, host: String, headerParameters: [String: String], parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
@@ -40,6 +49,7 @@ class UdacityClient: NSObject {
         for (key,value) in headerParameters {
             request.addValue(value, forHTTPHeaderField: key)
         }
+        request.timeoutInterval = 5
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
         print(request.url!)
@@ -54,7 +64,7 @@ class UdacityClient: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(String(describing: error))")
+                sendError("There was an error with your request: \(String(describing: error!.localizedDescription))")
                 return
             }
             
@@ -110,7 +120,7 @@ class UdacityClient: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(String(describing: error))")
+                sendError("There was an error with your request: \(String(describing: error!.localizedDescription))")
                 return
             }
             

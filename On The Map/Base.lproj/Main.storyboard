@@ -104,7 +104,7 @@
                                     <action selector="signupButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hKC-8l-o6d"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YMQ-YN-AY0">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YMQ-YN-AY0">
                                 <rect key="frame" x="177" y="340.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -219,7 +219,7 @@
                                     <outlet property="delegate" destination="MGB-ZV-Iul" id="zdM-pM-JIe"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Ae-10-CjL">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Ae-10-CjL">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -359,7 +359,7 @@ today?</string>
                                     <outlet property="delegate" destination="dI6-uR-N98" id="8qo-r4-2sV"/>
                                 </connections>
                             </mapView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="348-Wy-HRb">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="348-Wy-HRb">
                                 <rect key="frame" x="177" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -386,7 +386,7 @@ today?</string>
         <!--On The Map-->
         <scene sceneID="yZw-Zn-1Dy">
             <objects>
-                <tabBarController id="ZV3-7H-kzb" customClass="TabBarController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ZV3-7H-kzb" customClass="TabBarController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="On The Map" id="J0G-0p-JYx">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="QIH-sz-R1O">
                             <connections>
@@ -468,7 +468,7 @@ today?</string>
                                     <action selector="submitStudentInformation:" destination="BHd-pF-Lda" eventType="touchUpInside" id="IVI-Kf-33O"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hdC-0r-kXz">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hdC-0r-kXz">
                                 <rect key="frame" x="177" y="293.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>

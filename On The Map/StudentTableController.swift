@@ -13,11 +13,18 @@ class StudentTableController: UIViewController {
     @IBOutlet weak var studentTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        studentTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         
         if studentTableView.numberOfRows(inSection: 0) != 0 {
             activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
         }
         
         super.viewDidAppear(animated)
@@ -27,7 +34,6 @@ class StudentTableController: UIViewController {
         
         if activityIndicator != nil {
             activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
         }
         
         if studentTableView != nil {
